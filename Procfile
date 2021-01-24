@@ -1,2 +1,2 @@
 release: bash ./download_data.sh
-web: gunicorn app:app
+web: gunicorn app:app.server
