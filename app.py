@@ -8,7 +8,10 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
-import pandas as pd
+import pandas as pd, numpy as np 
+import os, glob, subprocess
+
+
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -38,4 +41,4 @@ app.layout = html.Div(children=[
 ])
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host="localhost")
+    app.run_server(debug=True)
