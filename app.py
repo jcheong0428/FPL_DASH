@@ -89,7 +89,6 @@ app.layout = dbc.Container(
                     id='method',
                     options=[
                         {'label': 'Average', 'value': 'average'},
-                        {'label': 'Median', 'value': 'median'},
                         {'label': 'Sum', 'value': 'sum'}
                     ],
                     value='sum',
@@ -140,6 +139,11 @@ app.layout = dbc.Container(
             active_tab="scatter",
         ),
         html.Div(id="tab-content", className="p-4"),
+        html.Hr(),
+        html.Footer([
+            html.A("Data from vaastav", href="https://github.com/vaastav/Fantasy-Premier-League", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
+            html.A("Created by Jin", href="http://jinhyuncheong.com", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
+        ], id="footer", className="justify-content-center text-center", style={"background-color": "rgba(0, 0, 0, 0.2)"})
     ]
 )
 
