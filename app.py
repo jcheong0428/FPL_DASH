@@ -36,8 +36,8 @@ def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_p
     func_dict = {"average": np.mean, 
             "median": np.median, 
             "sum": np.sum}
-    latest_gw = np.sort(gw['round'].unique())[-(weeks-1):]
-    latest_gw = gw.query("round >= @latest_gw[0] and round < = @latest_gw[-1]")
+    latest_gw_list = np.sort(gw['round'].unique())[-weeks:]
+    latest_gw = gw.query("round >= @latest_gw_list[0] and round < = @latest_gw_list[-1]")
     latest_gw = latest_gw.groupby("id").apply(func_dict[func_name]).sort_values(by=sort_by, ascending=False)
     latest_gw.index = latest_gw.index.astype(str).map(dict(zip(df.id.astype(str), df.web_name)))
     latest_gw = latest_gw.drop(columns=['id'])
