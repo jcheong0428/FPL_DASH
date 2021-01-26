@@ -17,6 +17,8 @@ import os, glob, subprocess
 ######## Load the data ########
 cwd = 'Fantasy-Premier-League/data/2020-21/'
 all_players_raw = pd.read_csv(os.path.join(cwd, 'players_raw.csv'))
+element_type_dict = {1:"GK", 2:"DEF", 3:"MID", 4:"FWD"}
+all_players_raw["Position"] = all_players_raw['element_type'].apply(lambda x: element_type_dict[x])
 
 output_file = 'latest_gw.csv'
 all_gw = pd.read_csv(output_file)
@@ -39,10 +41,10 @@ def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_p
     latest_gw_list = np.sort(gw['round'].unique())[-weeks:]
     latest_gw = gw.query("round >= @latest_gw_list[0] and round < = @latest_gw_list[-1]")
     latest_gw = latest_gw.groupby("id").apply(func_dict[func_name]).sort_values(by=sort_by, ascending=False)
-    latest_gw.index = latest_gw.index.astype(str).map(dict(zip(df.id.astype(str), df.web_name)))
-    latest_gw = latest_gw.drop(columns=['id'])
-    latest_gw = latest_gw.reset_index().rename(columns={latest_gw.index.name:'Player Name'})
-    latest_gw = latest_gw[['Player Name', 'total_points', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'minutes', 'clean_sheets', 'saves']].round(decimals=0)
+    latest_gw['Player Name'] = latest_gw.index.astype(str).map(dict(zip(df.id.astype(str), df.web_name)))
+    latest_gw['Position'] = latest_gw.index.astype(str).map(dict(zip(df.id.astype(str), df.Position)))
+    latest_gw = latest_gw.reset_index(drop=True)
+    latest_gw = latest_gw[['Player Name', 'Position', 'total_points', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'minutes', 'clean_sheets', 'saves']].round(decimals=0)
     return latest_gw
 
 df = latest_stats(weeks=6, sort_by="threat", func_name = "sum")
@@ -88,7 +90,7 @@ table = dash_table.DataTable(
     page_size=30,
     
     sort_action='native',
-
+    filter_action='native',
     style_table={'overflowX': 'auto'},
     style_cell={
         # 'height': '16px',
@@ -189,7 +191,7 @@ def update_table(value, method):
         page_size=30,
         
         sort_action='native',
-
+        filter_action='native',
         style_table={'overflowX': 'auto'},
         style_cell={
             # 'height': '16px',
