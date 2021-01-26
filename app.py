@@ -52,8 +52,8 @@ def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_p
     latest_gw['Position'] = latest_gw.index.astype(str).map(dict(zip(df.id.astype(str), df.Position)))
     latest_gw = latest_gw.reset_index(drop=True)
     latest_gw = latest_gw[['Player Name', 'Position', 'total_points', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'minutes', 'clean_sheets', 'saves', 'minutes', 'value']].round(decimals=1)
-    for col in ['influence', 'creativity', 'threat', 'ict_index', 'value']:
-        latest_gw[col] = latest_gw[col].map('{:.1f}'.format)
+    # for col in ['influence', 'creativity', 'threat', 'ict_index', 'value']:
+    #     latest_gw[col] = latest_gw[col].map('{:.1f}'.format)
     return latest_gw
 
 df = latest_stats(weeks=6, sort_by="threat", func_name = "sum")
