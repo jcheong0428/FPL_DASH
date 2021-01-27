@@ -62,7 +62,8 @@ df = latest_stats(weeks=6, sort_by="threat", func_name = "sum")
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX, "custom.css"])
 app.config['suppress_callback_exceptions'] = True
 
 server = app.server
@@ -96,7 +97,7 @@ app.index_string = """<!DOCTYPE html>
 
 table = dash_table.DataTable(
     id='table',
-    columns=[{"name": i, "id": i} for i in df.columns],
+    columns=[{"name": i.replace("_", " "), "id": i} for i in df.columns],
     data=df.to_dict('records'),
 
     page_size=30,
@@ -105,12 +106,12 @@ table = dash_table.DataTable(
     filter_action='native',
     style_table={'overflowX': 'auto'},
     style_cell={
-        # 'height': '16px',
+        'height': 'auto',
         # all three widths are needed
-        # 'minWidth': '25px', 'width': '140px', 'maxWidth': '180px',
+        'minWidth': '60px', 'width': 'auto', 'maxWidth': '120px',
         'overflow': 'hidden',
         'textOverflow': 'ellipsis',
-        # 'whiteSpace': 'normal'
+        'whiteSpace': 'normal'
     }
 )
 
@@ -148,18 +149,6 @@ def update_table(value, method):
     return table 
 
 @app.callback(
-    Output('slider-output-container', 'children'),
-    [Input('tab1-slider', 'value')])
-def update_slider_output(value):
-    return 'You have selected "{}"'.format(value)
-
-@app.callback(
-    Output('dd-output-container', 'children'),
-    [Input('tab1-method', 'value')])
-def update_dd_output(value):
-    return 'You have selected "{}"'.format(value)
-
-@app.callback(
     Output("tab-content", "children"),
     [Input("tabs", "active_tab")],
 )
@@ -188,8 +177,11 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
     fig = px.scatter(df, 
                     x=xaxis_column_name,
                     y=yaxis_column_name,
-                    hover_name='Player Name'
+                    hover_name='Player Name',
+                    color="Position",
+                    trendline="ols"
                     )
+    fig.data[1].line.color = 'red'
     return fig
 
 if __name__ == '__main__':

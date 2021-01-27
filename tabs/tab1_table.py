@@ -24,9 +24,6 @@ tab_1_layout = html.Div([
                             clearable=False,
                         ),
                     ], className="col-6"),
-                    dbc.Col([  
-                    html.Div(id='dd-output-container', style={'display': 'none'})
-                    ]),
                 ], className="row"),
                 html.Div([
                     dbc.Col([  
@@ -53,11 +50,9 @@ tab_1_layout = html.Div([
                                 11: '11',
                                 12: '12',
                             },
+                            className="custom-slider"
                         ),
                     ], className="col-6"),
-                    dbc.Col([  
-                        html.Div(id='slider-output-container', style={'display': 'none'})
-                    ]),
                 ], className="row"),
                 html.Div(id="table-content", className="p-4")
             ])

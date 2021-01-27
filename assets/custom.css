@@ -1,0 +1,48 @@
+.rc-slider-mark {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 100%;
+  font-size: 16px;
+}
+
+.rc-slider-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  cursor: -webkit-grab;
+  margin-top: -8px;
+  cursor: grab;
+  border-radius: 50%;
+  border: solid 2px #96dbfa;
+  background-color: #fff;
+  -ms-touch-action: pan-x;
+  touch-action: pan-x;
+}
+
+.unfocused {
+  font-size: 14px;
+}
+
+.column-header-name {
+  font-size: 14px;
+}
+
+.column-header--sort {
+  font-size: 20px;
+}
+
+.dash-header {
+  vertical-align: bottom;
+}
+
+.row {
+  margin-top: 5px;
+}
+
+@media (min-width: 960px) {
+  .container{
+    max-width: 1200px;
+  }
+}
