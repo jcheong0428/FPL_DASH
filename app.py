@@ -25,6 +25,7 @@ all_players_raw["Position"] = all_players_raw['element_type'].apply(lambda x: el
 
 output_file = 'latest_gw.csv'
 all_gw = pd.read_csv(output_file)
+latest_round = np.sort(all_gw['round'].unique())[-1]
 
 # for value
 value_dict = {}
@@ -130,10 +131,13 @@ app.layout = dbc.Container(
             active_tab="table",
         ),
         html.Div(id="tab-content", className="p-4"),
+        
         html.Hr(),
         html.Footer([
+            html.Div(f"Latest up to 2020-21 GW {latest_round}", id="last-update"),
             html.A("Data from vaastav", href="https://github.com/vaastav/Fantasy-Premier-League", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
             html.A("Created by Jin", href="http://jinhyuncheong.com", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
+            html.A("Contribute", href="https://github.com/jcheong0428/FPL_DASH", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
         ], id="footer", className="justify-content-center text-center", style={"background-color": "rgba(0, 0, 0, 0.2)"})
     ]
 )
