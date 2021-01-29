@@ -7,18 +7,7 @@ import pandas as pd, numpy as np
 ############# Clone the repo. #############
 try:
     print("Fetching submodule")
-    cmd = "git submodule add https://github.com/vaastav/Fantasy-Premier-League Fantasy-Premier-League"
-    subprocess.call(cmd, shell=True)
-except:
-    pass
-
-try:
-    print("Fetching submodule most recent update")
-    cmd = "cd Fantasy-Premier-League && git pull origin master && cd .."
-    subprocess.call(cmd, shell=True)
-    cmd = "git submodule foreach git pull origin master"
-    subprocess.call(cmd, shell=True)
-    cmd = "git submodule update --recursive"
+    cmd = "git clone https://github.com/vaastav/Fantasy-Premier-League"
     subprocess.call(cmd, shell=True)
 except:
     pass
