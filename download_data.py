@@ -5,13 +5,13 @@ import glob
 import pandas as pd, numpy as np
 
 ############# Clone the repo. #############
-try:
-    print("Fetching submodule")
-    cmd = "git clone https://github.com/vaastav/Fantasy-Premier-League ~/Fantasy-Premier-League"
-    subprocess.call(cmd, shell=True)
-except:
-    print("ERROR CLONING INTO FANTASY-PREMIER-LEAGUE")
-    pass
+# try:
+#     print("Fetching submodule")
+#     cmd = "git clone https://github.com/vaastav/Fantasy-Premier-League ~/Fantasy-Premier-League"
+#     subprocess.call(cmd, shell=True)
+# except:
+#     print("ERROR CLONING INTO FANTASY-PREMIER-LEAGUE")
+#     pass
 
 ############# Preprocess the player data. #############
 cwd = 'Fantasy-Premier-League/data/2020-21/'
