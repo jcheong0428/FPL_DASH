@@ -2,16 +2,22 @@
 import subprocess
 import os
 import glob
-import pandas as pd
+import pandas as pd, numpy as np
 
 ############# Clone the repo. #############
 try:
+    print("Fetching submodule")
     cmd = "git submodule add https://github.com/vaastav/Fantasy-Premier-League Fantasy-Premier-League"
     subprocess.call(cmd, shell=True)
 except:
     pass
 
 try:
+    print("Fetching submodule most recent update")
+    cmd = "cd Fantasy-Premier-League && git pull origin master && cd .."
+    subprocess.call(cmd, shell=True)
+    cmd = "git submodule foreach git pull origin master"
+    subprocess.call(cmd, shell=True)
     cmd = "git submodule update --recursive"
     subprocess.call(cmd, shell=True)
 except:
@@ -23,8 +29,11 @@ df = pd.read_csv(os.path.join(cwd, 'players_raw.csv'))
 player_idlist = pd.read_csv(os.path.join(cwd, "player_idlist.csv"))
 output_file = 'latest_gw.csv'
 if os.path.exists(output_file):
+    print("Found existing latest gw file. removing...")
     os.remove(output_file)
+    print("Removing complete")
 
+print("Filtering data...")
 player_gw_files = glob.glob(os.path.join(cwd, 'players/*/gw.csv'))
 latest_gw = pd.DataFrame()
 for player_gw in player_gw_files:
@@ -35,3 +44,9 @@ for player_gw in player_gw_files:
     _gw.to_csv(output_file, mode='w', index=False, header=True)
   else:
     _gw.to_csv(output_file, mode='a', index=False, header=False)
+print("Filtering complete.")
+
+latest_gw = pd.read_csv(output_file)
+last_gw = np.sort(latest_gw['round'].unique())[-1]
+print(np.sort(latest_gw['round'].unique()))
+print(f"Recent up to GW: {last_gw}")
