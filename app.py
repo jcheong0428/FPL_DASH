@@ -192,16 +192,15 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
     fig.data[1].line.color = 'red'
     return fig
 
-@app.callback(
-    Output('tabs', 'active_tab'),
-    Input('ExploreButton', 'n_clicks')
-)
-def explore_button(n):
-    if n is None:
-        pass
-    else:
-        return "table"
-
+# @app.callback(
+#     Output('tabs', 'active_tab'),
+#     Input('ExploreButton', 'n_clicks')
+# )
+# def explore_button(n):
+#     if n is None:
+#         pass
+#     else:
+#         return "table"
 
 if __name__ == '__main__':
     app.run_server(debug=True

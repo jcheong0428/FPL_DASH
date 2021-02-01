@@ -18,6 +18,6 @@ tab_3_layout = jumbotron = dbc.Jumbotron(
         html.P(
             ["Run quick regressions to see what metrics correlate with goals scored or total points."]
         ),
-        html.P(dbc.Button("Start exploring", color="primary", id="ExploreButton"), className="lead"),
+        # html.P(dbc.Button("Start exploring", color="primary", id="ExploreButton"), className="lead"),
     ]
 )
