@@ -9,12 +9,13 @@ import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import plotly.express as px
 import pandas as pd, numpy as np 
 import os, glob, subprocess
 from tabs import tab1_table
 from tabs import tab2_scatter
+from tabs import tab3_about
 
 ######## Load the data ########
 cwd = 'Fantasy-Premier-League/data/2020-21/'
@@ -126,6 +127,7 @@ app.layout = dbc.Container(
             children = [
                 dbc.Tab(label="Latest FPL Data", tab_id="table"),
                 dbc.Tab(label="Graph", tab_id="scatter"),
+                dbc.Tab(label="About", tab_id="about"),
             ],
             id="tabs",
             active_tab="table",
@@ -167,6 +169,8 @@ def render_tab_content(active_tab):
             return tab1_table.tab_1_layout
         elif active_tab == "scatter":
             return tab2_scatter.tab_2_layout
+        elif active_tab == "about":
+            return tab3_about.tab_3_layout
     return "No tab selected"
 
 @app.callback(
@@ -187,6 +191,17 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
                     )
     fig.data[1].line.color = 'red'
     return fig
+
+@app.callback(
+    Output('tabs', 'active_tab'),
+    Input('ExploreButton', 'n_clicks')
+)
+def explore_button(n):
+    if n is None:
+        pass
+    else:
+        return "table"
+
 
 if __name__ == '__main__':
     app.run_server(debug=True
