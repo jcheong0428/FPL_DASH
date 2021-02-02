@@ -202,7 +202,12 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
 #     else:
 #         return "table"
 
+ON_HEROKU = os.environ.get('ON_HEROKU')
+if ON_HEROKU:
+    # get the heroku port
+    port = int(os.environ.get('PORT', 17995))  # as per OP comments default is 17995
+else:
+    port = 5000
+
 if __name__ == '__main__':
-    app.run_server(debug=True
-    , host="localhost"
-    )
+    app.run_server(debug=True, host="0.0.0.0", port=port)
