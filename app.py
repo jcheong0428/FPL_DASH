@@ -192,6 +192,13 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
     fig.data[1].line.color = 'red'
     return fig
 
+@app.callback([Output('thankyou-box', 'style'), Output('feedback-box', 'style')],
+              Input('feedback-button', 'n_clicks'))
+def display_confirm(n):
+    if n is not None:
+        return [{"display": "block"}, {"display": "none"}]
+    return [{"display": "none"}, {"display": "block"}]
+
 # @app.callback(
 #     Output('tabs', 'active_tab'),
 #     Input('ExploreButton', 'n_clicks')

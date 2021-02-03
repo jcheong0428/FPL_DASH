@@ -46,3 +46,11 @@
     max-width: 1200px;
   }
 }
+
+.form-control {
+  border: 1px solid black;
+}
+
+.btn {
+  padding: 0.25rem .5rem;
+}
