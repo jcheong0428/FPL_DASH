@@ -30,8 +30,16 @@ Contributions are welcome!
 4. Submit a Pull Request!
 
 ## Deployment
+Git push to github will automatically deploy.
 ```
 git add . 
 git commit -m "made some changes"
 git push heroku master
+```
+
+## Update
+```
+cd Fantasy-Premier-League && git pull origin master && cd ..
+git add . && git commit -m "update gw"
+git push
 ```
