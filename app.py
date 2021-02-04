@@ -16,6 +16,9 @@ import os, glob, subprocess
 from tabs import tab1_table
 from tabs import tab2_scatter
 from tabs import tab3_about
+from firebase import firebase
+
+firebase = firebase.FirebaseApplication('https://fpldash-bbf95-default-rtdb.firebaseio.com/', None)
 
 ######## Load the data ########
 cwd = 'Fantasy-Premier-League/data/2020-21/'
@@ -193,21 +196,13 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
     return fig
 
 @app.callback([Output('thankyou-box', 'style'), Output('feedback-box', 'style')],
-              Input('feedback-button', 'n_clicks'))
-def display_confirm(n):
+              Input('feedback-button', 'n_clicks'),
+              State('message', 'value'))
+def display_confirm(n, msg):
     if n is not None:
+        firebase.post("/feedback", {"msg": msg})
         return [{"display": "block"}, {"display": "none"}]
     return [{"display": "none"}, {"display": "block"}]
-
-# @app.callback(
-#     Output('tabs', 'active_tab'),
-#     Input('ExploreButton', 'n_clicks')
-# )
-# def explore_button(n):
-#     if n is None:
-#         pass
-#     else:
-#         return "table"
 
 ON_HEROKU = os.environ.get('ON_HEROKU')
 if ON_HEROKU:

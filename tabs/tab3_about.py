@@ -22,7 +22,6 @@ tab_3_layout = html.Div(
             html.Hr(),
             html.Br(),
             html.Br(),
-            # html.P(dbc.Button("Start exploring", color="primary", id="ExploreButton"), className="lead"),
             dbc.Row(
                 dbc.Col(
                     html.Div([
@@ -35,6 +34,7 @@ tab_3_layout = html.Div(
                             bs_size="sm",
                             className="mb-3",
                             placeholder="Let us know what you'd like to see.",
+                            id="message"
                         ),
                         html.Div(
                             [dbc.Button("Send", id="feedback-button", className="mr-2", color="success"),],
