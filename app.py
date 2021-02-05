@@ -190,9 +190,10 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
                     y=yaxis_column_name,
                     hover_name='Player Name',
                     color="Position",
-                    trendline="ols"
+                    trendline="ols",
+                    text="Player Name"
                     )
-    fig.data[1].line.color = 'red'
+    fig.update_traces(textposition='top right')
     return fig
 
 @app.callback([Output('thankyou-box', 'style'), Output('feedback-box', 'style')],
