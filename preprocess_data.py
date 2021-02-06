@@ -112,6 +112,9 @@ for rowix, row in understat.iterrows():
               print("player not connected", player_name, first_name, second_name)
 
 understat['fplid'] = understat.id.map(understat_to_fplid)
+understat['xG90'] = understat['xG']/(understat['time']/90)
+understat['npxG90'] = understat['npxG']/(understat['time']/90)
+understat['xA90'] = understat['xA']/(understat['time']/90)
 
 understat.to_csv("understat_player.csv", index=False)
 print("FPL to Understat connection success.")

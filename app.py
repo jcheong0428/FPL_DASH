@@ -185,7 +185,7 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
                     trendline="ols",
                     text="Player Name"
                     )
-    fig.update_traces(textposition='top right')
+    fig.update_traces(textposition='top left')
     return fig
 
 @app.callback([Output('thankyou-box', 'style'), Output('feedback-box', 'style')],

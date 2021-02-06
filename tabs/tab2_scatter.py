@@ -4,24 +4,26 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-available_indicators = ['total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value', 'xG', 'xA', 'shots', 'key_passes', 'npg', 'npxG', 'xGChain', 'xGBuildup']
+available_indicators = ['total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value', 'xG', 'xA', 'xG90', 'xA90', 'shots', 'key_passes', 'npg', 'npxG', 'npxG90', 'xGChain', 'xGBuildup']
 
 tab_2_layout = html.Div([
     html.H1('Graph'),
     html.Div([
-        dcc.Dropdown(
-            id='xaxis-column',
-            options=[{'label': i, 'value': i} for i in available_indicators],
-            value='minutes'
-        ),
-        ], style={'width': '48%', 'display': 'inline-block'}),
-    html.Div([
-        dcc.Dropdown(
+        html.P("Y axis"),
+        dcc.RadioItems(
             id='yaxis-column',
             options=[{'label': i, 'value': i} for i in available_indicators],
             value='total_points'
         ),
-        ],style={'width': '48%', 'float': 'right', 'display': 'inline-block'}),
+        ], style={'width': '40%', 'display': 'inline-block'}),
+    html.Div([
+        html.P("X axis"),
+        dcc.RadioItems(
+            id='xaxis-column',
+            options=[{'label': i, 'value': i} for i in available_indicators],
+            value='minutes'
+        ),
+        ],style={'width': '40%', 'float': 'right', 'display': 'inline-block'}),
     html.Div([
         dbc.Col([
             html.P("Choose aggregation method: "),

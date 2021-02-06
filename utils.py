@@ -3,7 +3,7 @@ import pandas as pd
 import os, glob
 
 FPL_COLUMNS = ['Player Name', 'Position', 'team', 'total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value']
-UNDERSTAT_COLUMNS = ['xG', 'xA', 'shots', 'key_passes', 'npg', 'npxG', 'xGChain', 'xGBuildup']
+UNDERSTAT_COLUMNS = ['xG', 'xG90', 'xA', 'xA90', 'shots', 'key_passes', 'npg', 'npxG', 'npxG90','xGChain', 'xGBuildup']
 TABLE_COLUMNS = FPL_COLUMNS + UNDERSTAT_COLUMNS
 
 
