@@ -30,7 +30,6 @@ teams = pd.read_csv(os.path.join(cwd, "teams.csv"))
 # understat
 understat_path = os.path.join(cwd, "understat/understat_player.csv")
 understat = pd.read_csv(understat_path, engine="python")
-understat.fplid = understat.fplid.astype(str)
 
 def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_players_raw, teams = teams, value_dict=value_dict, understat = understat, preprocess=False):
     """Retrieve the latest gw stats. 
@@ -64,5 +63,6 @@ def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_p
     latest_gw = latest_gw.reset_index(drop=True)
     # # merge with understat
     if not preprocess:
+        understat.fplid = understat.fplid.astype(str)
         latest_gw = latest_gw.merge(understat[UNDERSTAT_COLUMNS+['fplid']], how="inner", left_on="id", right_on="fplid")[TABLE_COLUMNS]
     return latest_gw.round(decimals=1)
