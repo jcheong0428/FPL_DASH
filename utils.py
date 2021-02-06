@@ -28,7 +28,7 @@ for id in all_gw.id.unique():
 teams = pd.read_csv(os.path.join(cwd, "teams.csv"))
 
 # understat
-understat_path = os.path.join(cwd, "understat/understat_player.csv")
+understat_path = os.path.join(cwd, "understat_player.csv")
 understat = pd.read_csv(understat_path, engine="python")
 understat.fplid = understat.fplid.astype(str)
 
