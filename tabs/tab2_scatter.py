@@ -4,7 +4,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-available_indicators = ['total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value']
+available_indicators = ['total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value', 'xG', 'xA', 'shots', 'key_passes', 'npg', 'npxG', 'xGChain', 'xGBuildup']
 
 tab_2_layout = html.Div([
     html.H1('Graph'),
@@ -67,5 +67,10 @@ tab_2_layout = html.Div([
             ),
         ], className="col-6"),
     ], className="row"),
-    dcc.Graph(id="player-graph" ,style={'width': '90vh', 'height': '90vh'})
+    dcc.Graph(id="player-graph" ,style={'width': '90vh', 'height': '90vh'}),
+    html.Br(),
+    html.Br(),
+    html.Div([
+        html.P("xG, xA, shots, key passes, npg, npxG, xG Chain, xG Buildup are always estimated for the entire season.")
+        ], id="disclaimer", className="disclaimer")
 ])

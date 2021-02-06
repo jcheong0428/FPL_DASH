@@ -54,3 +54,8 @@
 .btn {
   padding: 0.25rem .5rem;
 }
+
+.disclaimer {
+  text-align: right;
+  margin-left: auto;
+}

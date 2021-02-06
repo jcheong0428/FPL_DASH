@@ -54,5 +54,10 @@ tab_1_layout = html.Div([
                         ),
                     ], className="col-6"),
                 ], className="row"),
-                html.Div(id="table-content", className="p-4")
+                html.Div(id="table-content", className="p-4"),
+                html.Br(),
+                html.Br(),
+                html.Div([
+                    html.P("xG, xA, shots, key passes, npg, npxG, xG Chain, xG Buildup are always estimated for the entire season.")
+                    ], id="disclaimer", className="disclaimer")
             ])

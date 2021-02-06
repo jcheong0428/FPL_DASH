@@ -17,6 +17,7 @@ from tabs import tab1_table
 from tabs import tab2_scatter
 from tabs import tab3_about
 from firebase import firebase
+from utils import TABLE_COLUMNS, latest_stats
 
 firebase = firebase.FirebaseApplication('https://fpldash-bbf95-default-rtdb.firebaseio.com/', None)
 
@@ -27,43 +28,16 @@ all_players_raw = pd.read_csv(os.path.join(cwd, 'players_raw.csv'))
 element_type_dict = {1:"GK", 2:"DEF", 3:"MID", 4:"FWD"}
 all_players_raw["Position"] = all_players_raw['element_type'].apply(lambda x: element_type_dict[x])
 
+# latest_gw
 output_file = 'latest_gw.csv'
 all_gw = pd.read_csv(output_file)
 latest_round = np.sort(all_gw['round'].unique())[-1]
 
-# for value
-value_dict = {}
-for id in all_gw.id.unique():
-  value_dict[str(id)] = all_gw.query("id==@id").sort_values(by='round').iloc[-1].value/10
+# understat
+understat = pd.read_csv("understat_player.csv", engine="python")
+understat.fplid = understat.fplid.astype(str)
 
-def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_players_raw, value_dict=value_dict):
-    """Retrieve the latest gw stats. 
-
-    Avg: 
-        gw: Gameweek data. 
-        weeks: Number of weeks
-        sort_by: column name
-        func_name: (average, median, sum)
-
-    Returns:
-        latest_gw 
-    """
-    func_dict = {"average": np.mean, 
-            "median": np.median, 
-            "sum": np.sum}
-    latest_gw_list = np.sort(gw['round'].unique())[-weeks:]
-    latest_gw = gw.query("round >= @latest_gw_list[0] and round < = @latest_gw_list[-1]")
-    latest_gw = latest_gw.groupby("id").apply(func_dict[func_name]).sort_values(by=sort_by, ascending=False)
-    latest_gw['value'] = latest_gw.index.astype(str).map(value_dict)
-    latest_gw['Player Name'] = latest_gw.index.astype(str).map(dict(zip(df.id.astype(str), df.web_name)))
-    latest_gw['Position'] = latest_gw.index.astype(str).map(dict(zip(df.id.astype(str), df.Position)))
-    latest_gw = latest_gw.reset_index(drop=True)
-    latest_gw = latest_gw[['Player Name', 'Position', 'total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value']].round(decimals=1)
-    # for col in ['influence', 'creativity', 'threat', 'ict_index', 'value']:
-    #     latest_gw[col] = latest_gw[col].map('{:.1f}'.format)
-    return latest_gw
-
-df = latest_stats(weeks=6, sort_by="threat", func_name = "sum")
+df = latest_stats(weeks=6, sort_by="threat", func_name = "sum", understat=understat)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -97,6 +71,23 @@ app.index_string = """<!DOCTYPE html>
             {%scripts%}
             {%renderer%}
         </footer>
+
+    <!-- Default Statcounter code for fpldash
+    http://www.fpldash.com -->
+    <script type="text/javascript">
+    var sc_project=12475179; 
+    var sc_invisible=1; 
+    var sc_security="6533ba56"; 
+    </script>
+    <script type="text/javascript"
+    src="https://www.statcounter.com/counter/counter.js"
+    async></script>
+    <noscript><div class="statcounter"><a title="Web Analytics"
+    href="https://statcounter.com/" target="_blank"><img
+    class="statcounter"
+    src="https://c.statcounter.com/12475179/0/6533ba56/1/"
+    alt="Web Analytics"></a></div></noscript>
+    <!-- End of Statcounter Code -->
     </body>
 </html>"""
 
@@ -153,8 +144,8 @@ app.layout = dbc.Container(
     Input('tab1-method', 'value'), 
     ])
 def update_table(value, method):
-    df = latest_stats(weeks=value, sort_by="total_points", func_name = method)
-    table.data = df.to_dict('records')
+    df = latest_stats(weeks=value, sort_by="total_points", func_name = method, understat=understat)
+    table.data = df[TABLE_COLUMNS].to_dict('records')
     return table 
 
 @app.callback(
@@ -184,7 +175,8 @@ def render_tab_content(active_tab):
     Input('tab2-method', 'value'),],
 )
 def update_graph(xaxis_column_name, yaxis_column_name, value, method):
-    df = latest_stats(weeks=value, sort_by="total_points", func_name = method)
+    df = latest_stats(weeks=value, sort_by="total_points", func_name = method, understat=understat)
+    df = df[TABLE_COLUMNS]
     fig = px.scatter(df, 
                     x=xaxis_column_name,
                     y=yaxis_column_name,
