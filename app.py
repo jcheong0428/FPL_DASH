@@ -109,7 +109,11 @@ table = dash_table.DataTable(
         'overflow': 'hidden',
         'textOverflow': 'ellipsis',
         'whiteSpace': 'normal'
-    }
+    },
+    style_header={
+                'fontWeight': 'bold', 
+                "textTransform": "uppercase"},
+    style_as_list_view=True,
 )
 
 # https://dash-bootstrap-components.opensource.faculty.ai/examples/graphs-in-tabs/
