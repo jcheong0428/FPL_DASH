@@ -23,10 +23,12 @@
 
 .unfocused {
   font-size: 14px;
+  font-family: 'PremierSans-Bold', Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 .column-header-name {
   font-size: 12px;
+  font-family: 'PremierSans-Bold', Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 .column-header--sort {

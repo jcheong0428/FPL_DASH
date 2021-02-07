@@ -74,7 +74,11 @@ tab_2_layout = html.Div([
     html.Div(
         dbc.Row([
             dbc.Col([
-                dcc.Graph(id="player-graph" ),
+                dcc.Loading(
+                    id="loading",
+                    type="default",
+                    children=dcc.Graph(id="player-graph" ),
+                ),
             ])
         ])
     ),

@@ -54,7 +54,11 @@ tab_1_layout = html.Div([
                         ),
                     ], className="col-6"),
                 ], className="row"),
-                html.Div(id="table-content", className="p-4"),
+                dcc.Loading(
+                    id="loading",
+                    type="default",
+                    children=html.Div(id="table-content", className="p-4")
+                ),
                 html.Br(),
                 html.Br(),
                 html.Div([
