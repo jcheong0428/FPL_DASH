@@ -120,12 +120,27 @@ table = dash_table.DataTable(
 app.layout = dbc.Container(
     [
         dcc.Store(id="store"),
-        html.H1("FPL Latest N-weeks Average Dashboard"),
+        dbc.NavbarSimple(color="#37003c"),
+        dbc.Row(
+            dbc.Col(
+                html.Div(
+                    html.H1("Fantasy Premier League Dashboard"),
+                ), width={"size": 11, "offset": 1}
+            )
+        ),
+        dbc.Row(
+            dbc.Col(
+                html.Div(
+                    dcc.Markdown("""A customizable FPL dashboard with advanced and the latest statistics.  Define your player form with advanced metrics filtered by the latest number of weeks you want to consider with official [FPL data](https://fantasy.premierleague.com/) and advanced metrics like xG and xA from [understat](https://understat.com/)."""
+                    )
+                ), width={"size": 8, "offset": 1}, className="markdown"
+            )
+        ),
         html.Hr(),
         dbc.Tabs(
             children = [
-                dbc.Tab(label="Latest FPL Data", tab_id="table"),
-                dbc.Tab(label="Graph", tab_id="scatter"),
+                dbc.Tab(label="Form Table", tab_id="table"),
+                dbc.Tab(label="Custom Graph", tab_id="scatter"),
                 dbc.Tab(label="About", tab_id="about"),
             ],
             id="tabs",
@@ -135,11 +150,11 @@ app.layout = dbc.Container(
         
         html.Hr(),
         html.Footer([
-            html.Div(f"Latest up to 2020-21 GW {latest_round}", id="last-update"),
+            html.Div(f"Latest up to 2020-21 GW {latest_round}", id="last-update", className="last-update"),
             html.A("Data from vaastav", href="https://github.com/vaastav/Fantasy-Premier-League", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
             html.A("Created by Jin", href="http://jinhyuncheong.com", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
             html.A("Contribute", href="https://github.com/jcheong0428/FPL_DASH", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
-        ], id="footer", className="justify-content-center text-center", style={"background-color": "rgba(0, 0, 0, 0.2)"})
+        ], id="footer", className="justify-content-center text-center", style={"background-color": "#37003c"})
     ]
 )
 

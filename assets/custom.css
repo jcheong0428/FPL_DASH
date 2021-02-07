@@ -1,3 +1,7 @@
+.body {
+  font-family: 'PremierSans-Bold', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
 .rc-slider-mark {
   position: absolute;
   top: 18px;
@@ -61,6 +65,7 @@
 .disclaimer {
   text-align: right;
   margin-left: auto;
+  font-style: italic;
 }
 
 .radioButtons {
@@ -88,4 +93,50 @@
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.nav-item {
+  border-radius: 10px 10px 0 0;
+  margin-right: 0.5rem;
+  color: #fff;
+  transition: all .2s;
+  background-color: #02894e;
+}
+
+.nav-link {
+  color: #fff;
+}
+
+a:link {
+  text-decoration: none;
+  color: #e90052;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #e90052;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+a.nav-link:link, a.nav-link:visited, a.nav-link:hover 
+{   
+  text-decoration: none;
+  color: white;
+}
+
+.nav-tabs .nav-link:active {
+  border-radius: 10px 10px 0 0;
+  background-color: #fff;
+}
+
+.last-update {
+  color: #fff;
+  background-color: transparent;
 }
