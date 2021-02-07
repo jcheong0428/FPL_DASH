@@ -41,8 +41,9 @@ df = latest_stats(weeks=6, sort_by="threat", func_name = "sum", understat=unders
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX, "custom.css"])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}]
+)
+
 app.config['suppress_callback_exceptions'] = True
 
 server = app.server
@@ -185,6 +186,13 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
                     trendline="ols",
                     text="Player Name"
                     )
+    fig.update_layout(legend=dict(
+        yanchor="bottom",
+        y=-0.3,
+        xanchor="center",
+        x=0.5,
+        orientation= 'h'
+    ))
     fig.update_traces(textposition='top left')
     return fig
 
