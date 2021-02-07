@@ -186,7 +186,9 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
                     trendline="ols",
                     text="Player Name"
                     )
-    fig.update_layout(legend=dict(
+    fig.update_layout(
+        template="plotly_white",
+        legend=dict(
         yanchor="bottom",
         y=-0.3,
         xanchor="center",
