@@ -62,7 +62,9 @@
 }
 
 .radioButtons {
+  margin-bottom: .2rem;
   margin-right: .5rem;
+  font-size: 16px;
 }
 
 .dash-table-container {
@@ -74,6 +76,7 @@
   align-content: center;
   margin-left: auto;
   margin-right: auto;
+  height: 650px;
 }
 
 @media (max-width: 450px){

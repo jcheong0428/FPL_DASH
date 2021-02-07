@@ -14,6 +14,7 @@ tab_2_layout = html.Div([
             id='yaxis-column',
             options=[{'label': i, 'value': i} for i in available_indicators],
             value='total_points',
+            labelClassName='radioButtons'
         ),
         ], style={'width': '40%', 'display': 'inline-block'}),
     html.Div([
