@@ -68,3 +68,19 @@
 .dash-table-container {
   border-right: 2px inset #ccc
 }
+
+.dash-graph {
+  max-width: 90%;
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 450px){
+  .dash-graph {
+    max-width: 100%;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

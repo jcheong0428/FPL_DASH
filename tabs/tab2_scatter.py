@@ -70,7 +70,13 @@ tab_2_layout = html.Div([
             ),
         ], className="col-6"),
     ], className="row"),
-    dcc.Graph(id="player-graph" ,style={'width': '90vh', 'height': '90vh'}),
+    html.Div(
+        dbc.Row([
+            dbc.Col([
+                dcc.Graph(id="player-graph" ),
+            ])
+        ])
+    ),
     html.Br(),
     html.Br(),
     html.Div([
