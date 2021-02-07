@@ -26,7 +26,7 @@
 }
 
 .column-header-name {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .column-header--sort {
@@ -35,6 +35,7 @@
 
 .dash-header {
   vertical-align: bottom;
+  font-weight: bold;
 }
 
 .row {
@@ -58,4 +59,12 @@
 .disclaimer {
   text-align: right;
   margin-left: auto;
+}
+
+.radioButtons {
+  margin-right: .5rem;
+}
+
+.dash-table-container {
+  border-right: 2px inset #ccc
 }

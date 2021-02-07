@@ -93,10 +93,10 @@ app.index_string = """<!DOCTYPE html>
 
 table = dash_table.DataTable(
     id='table',
-    columns=[{"name": i.replace("_", " "), "id": i} for i in df.columns],
+    columns=[{"name": i.replace("_", " "), "id": i, "deletable":True} for i in df.columns],
     data=df.to_dict('records'),
 
-    page_size=30,
+    page_size=20,
     
     sort_action='native',
     filter_action='native',
@@ -205,4 +205,5 @@ else:
     port = 5000
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host="0.0.0.0", port=port)
+    # app.run_server(debug=True, host="0.0.0.0", port=port)
+    app.run_server(debug=False, host="0.0.0.0", port=port)
