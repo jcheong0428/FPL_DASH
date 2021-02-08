@@ -1,5 +1,6 @@
 .body {
   font-family: 'PremierSans-Bold', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 .rc-slider-mark {
@@ -139,4 +140,16 @@ a.nav-link:link, a.nav-link:visited, a.nav-link:hover
 .last-update {
   color: #fff;
   background-color: transparent;
+}
+
+.tabs {
+  font-size: .7rem;
+}
+
+.markdown {
+  font-size: .8rem;
+}
+
+.descriptions {
+  font-size: .8rem;
 }

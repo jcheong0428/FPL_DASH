@@ -131,20 +131,25 @@ app.layout = dbc.Container(
         dbc.Row(
             dbc.Col(
                 html.Div(
-                    dcc.Markdown("""A customizable FPL dashboard with advanced and the latest statistics.  Define your player form with advanced metrics filtered by the latest number of weeks you want to consider with official [FPL data](https://fantasy.premierleague.com/) and advanced metrics like xG and xA from [understat](https://understat.com/)."""
+                    dcc.Markdown("""FPL DASH is a customizable Fantasy Premier League dashboard with the latest stats from [FPL](https://fantasy.premierleague.com/) and [understat](https://understat.com/).  Create your own player form by deciding how many latest games to consider and what metric you want to analyze. Use the Custom Graph tool to plot metrics against one another such as total points per value."""
                     )
                 ), width={"size": 8, "offset": 1}, className="markdown"
             )
         ),
         html.Hr(),
-        dbc.Tabs(
-            children = [
-                dbc.Tab(label="Form Table", tab_id="table"),
-                dbc.Tab(label="Custom Graph", tab_id="scatter"),
-                dbc.Tab(label="About", tab_id="about"),
-            ],
-            id="tabs",
-            active_tab="table",
+        dbc.Row(
+            dbc.Col(
+                dbc.Tabs(
+                    children = [
+                        dbc.Tab(label="Form Table", tab_id="table"),
+                        dbc.Tab(label="Custom Graph", tab_id="scatter"),
+                        dbc.Tab(label="About", tab_id="about"),
+                    ],
+                    id="tabs",
+                    active_tab="table",
+                    className="tabs"
+                ), width={"size": 10, "offset": 1}
+            ), 
         ),
         html.Div(id="tab-content", className="p-4"),
         

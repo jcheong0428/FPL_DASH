@@ -8,11 +8,11 @@ import pandas as pd, numpy as np
 import os, glob, subprocess
 
 tab_1_layout = html.Div([
-                html.Div([
+                dbc.Row([
                     dbc.Col([
                         html.P("Choose aggregation method: "),
-                        ], className="col-4"),
-
+                        ], className="descriptions", width={"size": 4, "offset": 1}
+                    ),
                     dbc.Col([            
                         dcc.Dropdown(
                             id='tab1-method',
@@ -22,13 +22,14 @@ tab_1_layout = html.Div([
                             ],
                             value='sum',
                             clearable=False,
-                        ),
-                    ], className="col-6"),
-                ], className="row"),
-                html.Div([
+                        )], width={"size": 6},
+                    )
+                ]),
+                dbc.Row([
                     dbc.Col([  
                         html.P("Choose weeks to average over: "),
-                    ], className="col-4"),
+                       ], className="descriptions", width={"size": 4, "offset": 1}
+                       ),
                     dbc.Col([  
                         dcc.Slider(
                             id='tab1-slider',
@@ -52,8 +53,8 @@ tab_1_layout = html.Div([
                             },
                             className="custom-slider"
                         ),
-                    ], className="col-6"),
-                ], className="row"),
+                    ], width={"size": 6}),
+                ]),
                 dcc.Loading(
                     id="loading",
                     type="default",

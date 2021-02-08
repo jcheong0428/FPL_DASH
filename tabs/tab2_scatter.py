@@ -7,8 +7,8 @@ import dash_bootstrap_components as dbc
 available_indicators = ['total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value', 'xG', 'xA', 'xG90', 'xA90', 'shots', 'key_passes', 'npg', 'npxG', 'npxG90', 'xGChain', 'xGBuildup']
 
 tab_2_layout = html.Div([
-    html.H1('Graph'),
-    html.Div([
+    dbc.Row([
+        dbc.Col([
         html.P("Y axis"),
         dcc.RadioItems(
             id='yaxis-column',
@@ -16,21 +16,22 @@ tab_2_layout = html.Div([
             value='total_points',
             labelClassName='radioButtons'
         ),
-        ], style={'width': '40%', 'display': 'inline-block'}),
-    html.Div([
-        html.P("X axis"),
-        dcc.RadioItems(
-            id='xaxis-column',
-            options=[{'label': i, 'value': i} for i in available_indicators],
-            value='minutes',
-            labelClassName='radioButtons'
-        ),
-        ],style={'width': '40%', 'float': 'right', 'display': 'inline-block'}),
-    html.Div([
+        ], width={"size": 4, "offset": 1}, style={'width': '40%', 'display': 'inline-block'}),
+        dbc.Col([
+            html.P("X axis"),
+            dcc.RadioItems(
+                id='xaxis-column',
+                options=[{'label': i, 'value': i} for i in available_indicators],
+                value='minutes',
+                labelClassName='radioButtons'
+            ),
+            ], width={"size": 4, "offset": 1},style={'width': '40%', 'float': 'right', 'display': 'inline-block'}),
+    ]),
+    dbc.Row([
         dbc.Col([
             html.P("Choose aggregation method: "),
-            ], className="col-4"),
-
+            ], className="descriptions", width={"size": 4, "offset": 1}
+        ),
         dbc.Col([            
             dcc.Dropdown(
                 id='tab2-method',
@@ -40,13 +41,14 @@ tab_2_layout = html.Div([
                 ],
                 value='sum',
                 clearable=False,
-            ),
-        ], className="col-6"),
-    ], className="row"),
-    html.Div([
+            )], width={"size": 6},
+        )
+    ]),
+    dbc.Row([
         dbc.Col([  
             html.P("Choose weeks to average over: "),
-        ], className="col-4"),
+            ], className="descriptions", width={"size": 4, "offset": 1}
+            ),
         dbc.Col([  
             dcc.Slider(
                 id='tab2-slider',
@@ -68,9 +70,10 @@ tab_2_layout = html.Div([
                     11: '11',
                     12: '12',
                 },
+                className="custom-slider"
             ),
-        ], className="col-6"),
-    ], className="row"),
+        ], width={"size": 6}),
+    ]),
     html.Div(
         dbc.Row([
             dbc.Col([
