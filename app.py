@@ -17,7 +17,7 @@ from tabs import tab1_table
 from tabs import tab2_scatter
 from tabs import tab3_about
 from firebase import firebase
-from utils import TABLE_COLUMNS, latest_stats
+from utils import TABLE_COLUMNS, TABLE_EXTENDED_COLUMNS, latest_stats
 
 firebase = firebase.FirebaseApplication('https://fpldash-bbf95-default-rtdb.firebaseio.com/', None)
 
@@ -37,7 +37,7 @@ latest_round = np.sort(all_gw['round'].unique())[-1]
 understat = pd.read_csv("understat_player.csv", engine="python")
 understat.fplid = understat.fplid.astype(str)
 
-df = latest_stats(weeks=6, sort_by="threat", func_name = "sum", understat=understat)
+df = latest_stats(weeks=6, sort_by="threat", func_name = "sum", understat=understat, divide_minutes=True)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -169,8 +169,14 @@ app.layout = dbc.Container(
     Input('tab1-method', 'value'), 
     ])
 def update_table(value, method):
-    df = latest_stats(weeks=value, sort_by="total_points", func_name = method, understat=understat)
-    table.data = df[TABLE_COLUMNS].to_dict('records')
+    divide_minutes = True
+    df = latest_stats(weeks=value, sort_by="total_points", func_name = method, understat=understat, divide_minutes=divide_minutes)    
+    if divide_minutes: 
+        df = df[TABLE_EXTENDED_COLUMNS]
+    else:
+        df = df[TABLE_COLUMNS]
+
+    table.data = df.to_dict('records')
     return table 
 
 @app.callback(
@@ -200,8 +206,12 @@ def render_tab_content(active_tab):
     Input('tab2-method', 'value'),],
 )
 def update_graph(xaxis_column_name, yaxis_column_name, value, method):
-    df = latest_stats(weeks=value, sort_by="total_points", func_name = method, understat=understat)
-    df = df[TABLE_COLUMNS]
+    divide_minutes = True
+    df = latest_stats(weeks=value, sort_by="total_points", func_name = method, understat=understat, divide_minutes=divide_minutes)
+    if divide_minutes: 
+        df = df[TABLE_EXTENDED_COLUMNS]
+    else:
+        df = df[TABLE_COLUMNS]
     fig = px.scatter(df, 
                     x=xaxis_column_name,
                     y=yaxis_column_name,

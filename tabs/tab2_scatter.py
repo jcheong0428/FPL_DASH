@@ -4,7 +4,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-available_indicators = ['total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value', 'xG', 'xA', 'xG90', 'xA90', 'shots', 'key_passes', 'npg', 'npxG', 'npxG90', 'xGChain', 'xGBuildup']
+available_indicators = ['total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value', 'xG', 'xA', 'xG90', 'xA90', 'shots', 'key_passes', 'npg', 'npxG', 'npxG90', 'xGChain', 'xGBuildup', 'goals_scored90', 'assists90', 'attacking_return90', 'minutes_to_attacking_return']
 
 tab_2_layout = html.Div([
     dbc.Row([

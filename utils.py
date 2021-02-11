@@ -5,6 +5,7 @@ import os, glob
 FPL_COLUMNS = ['Player Name', 'Position', 'team', 'total_points', 'minutes', 'goals_scored', 'assists', 'bonus', 'influence', 'creativity', 'threat', 'ict_index', 'clean_sheets', 'saves', 'value']
 UNDERSTAT_COLUMNS = ['xG', 'xG90', 'xA', 'xA90', 'shots', 'key_passes', 'npg', 'npxG', 'npxG90','xGChain', 'xGBuildup']
 TABLE_COLUMNS = FPL_COLUMNS + UNDERSTAT_COLUMNS
+TABLE_EXTENDED_COLUMNS = FPL_COLUMNS + UNDERSTAT_COLUMNS + [c+'90' for c in ['goals_scored', 'assists', 'attacking_return']] +['minutes_to_attacking_return']
 
 
 ######## Load the data ########
@@ -31,15 +32,20 @@ teams = pd.read_csv(os.path.join(cwd, "teams.csv"))
 understat_path = os.path.join(cwd, "understat/understat_player.csv")
 understat = pd.read_csv(understat_path, engine="python")
 
-def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_players_raw, teams = teams, value_dict=value_dict, understat = understat, preprocess=False):
+def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_players_raw, teams = teams, value_dict=value_dict, understat = understat, preprocess=False, divide_minutes=True):
     """Retrieve the latest gw stats. 
 
-    Avg: 
-        gw: Gameweek data. 
-        weeks: Number of weeks
+    Arg: 
+        weeks: Number of gameweeks to average. 
         sort_by: column name
         func_name: (average, median, sum)
-
+        gw: Gameweek data.
+        df:  all player data from vaastav FPL repo
+        teams: team information data
+        value_dict: latest player value data. 
+        understat: understat df
+        preprocess: whether to include first_name, second_name to match with understat data. 
+        divide_minutes: whether to provide data/minutes data. 
     Returns:
         latest_gw 
     """
@@ -65,4 +71,9 @@ def latest_stats(weeks=6, sort_by="threat", func_name="sum", gw=all_gw, df=all_p
     if not preprocess:
         understat.fplid = understat.fplid.astype(str)
         latest_gw = latest_gw.merge(understat[UNDERSTAT_COLUMNS+['fplid']], how="inner", left_on="id", right_on="fplid")[TABLE_COLUMNS]
+    if divide_minutes:
+        for col in ['goals_scored', 'assists']:
+            latest_gw[col+'90'] = latest_gw[col].astype(float) / (latest_gw['minutes']/90)
+        latest_gw['attacking_return90'] = (latest_gw['goals_scored'] + latest_gw['assists']) / (latest_gw['minutes']/90)
+        latest_gw['minutes_to_attacking_return'] = latest_gw['minutes'] / (latest_gw['goals_scored'] + latest_gw['assists'])
     return latest_gw.round(decimals=1)
