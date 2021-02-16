@@ -210,6 +210,7 @@ def update_graph(xaxis_column_name, yaxis_column_name, value, method):
     df = latest_stats(weeks=value, sort_by="total_points", func_name = method, understat=understat, divide_minutes=divide_minutes)
     if divide_minutes: 
         df = df[TABLE_EXTENDED_COLUMNS]
+        df = df.replace([np.inf, -np.inf], np.nan).dropna()
     else:
         df = df[TABLE_COLUMNS]
     fig = px.scatter(df, 
