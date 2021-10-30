@@ -22,7 +22,7 @@ from utils import TABLE_COLUMNS, TABLE_EXTENDED_COLUMNS, latest_stats
 firebase = firebase.FirebaseApplication('https://fpldash-bbf95-default-rtdb.firebaseio.com/', None)
 
 ######## Load the data ########
-cwd = 'Fantasy-Premier-League/data/2020-21/'
+cwd = 'Fantasy-Premier-League/data/2021-22/'
 all_players_raw = pd.read_csv(os.path.join(cwd, 'players_raw.csv'))
 # for position
 element_type_dict = {1:"GK", 2:"DEF", 3:"MID", 4:"FWD"}
@@ -155,7 +155,7 @@ app.layout = dbc.Container(
         
         html.Hr(),
         html.Footer([
-            html.Div(f"Latest up to 2020-21 GW {latest_round}", id="last-update", className="last-update"),
+            html.Div(f"Latest up to 2021-22 GW {latest_round}", id="last-update", className="last-update"),
             html.A("Data from vaastav", href="https://github.com/vaastav/Fantasy-Premier-League", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
             html.A("Created by Jin", href="http://jinhyuncheong.com", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),
             html.A("Contribute", href="https://github.com/jcheong0428/FPL_DASH", className="text-dark", style={"float": "right", "margin-right": "30px", "vertical-align": "middle"}),

@@ -19,7 +19,6 @@ clock: python clock.py
 
 ## Running locally
 ```
-python download_data.py
 python app.py
 ```
 
