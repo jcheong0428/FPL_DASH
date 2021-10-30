@@ -13,7 +13,7 @@ This script preprocesses the data.
 """
 
 ############# Preprocess the player data. #############
-cwd = 'Fantasy-Premier-League/data/2020-21/'
+cwd = 'Fantasy-Premier-League/data/2021-22/'
 df = pd.read_csv(os.path.join(cwd, 'players_raw.csv'))
 player_idlist = pd.read_csv(os.path.join(cwd, "player_idlist.csv"))
 output_file = 'latest_gw.csv'
